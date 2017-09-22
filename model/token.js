@@ -1,3 +1,5 @@
+
+
 module.exports = {
     getAccessToken: function() {
       console.log('getAccessToken')
@@ -25,14 +27,33 @@ module.exports = {
     getUser: function(username, password) {
       console.log('username', username)
       console.log('password', password)
-      return {
-        username : 'Tee',
-        name : 'tee'
-      };
+
+      return new Promise(function(resolve, reject){
+        resolve({
+          id : '123456'
+        });
+      })
     },
 
-    saveToken: function(token, client, user, [callback]){
-      console.log('saveToken')
-      return new Promise('works!');
+    saveToken: function(token, client, user){
+      console.log('saveToken',token)
+      console.log('client',client)
+      console.log('user',user)
+
+      return new Promise(function(resolve, reject){
+        resolve({
+          accessToken: token.accessToken,
+          accessTokenExpiresAt: token.accessTokenExpiresAt,
+          refreshToken: token.refreshToken,
+          refreshTokenExpiresAt: token.refreshTokenExpiresAt,
+          scope: token.scope,
+          client: {id: client.id},
+          user: {id: user.id}
+        });
+      })
+
+
+        
+
     }
 };

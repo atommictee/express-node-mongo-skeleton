@@ -48,11 +48,12 @@ app.all('/oauth/token', function(req,res,next){
     var response = new Response(res);
 
     oauth
-        .token(request,response, {requireClientAuthentication : {client_credentials:false}})
+        .token(request,response)
         .then(function(token) {
             // Todo: remove unnecessary values in response
             return res.json(token)
         }).catch(function(err){
+            console.log('err', err)
             return res.status( 500).json(err)
         })
 });
@@ -64,6 +65,7 @@ app.post('/authorise', function(req, res){
     return oauth.authorize(request, response).then(function(success) {
         res.json(success)
     }).catch(function(err){
+        console.log(err)
         res.status(err.code || 500).json(err)
     })
 });
